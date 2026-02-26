@@ -1,0 +1,14 @@
+apis: []
+versionSets: []
+workspaces: []
+backends: []
+namedValues:
+ - tifsecret1
+products: []
+subscriptions: []
+tags: []
+policyFragments: []
+groups: []
+loggers: []
+diagnostics: []
+gateways: []

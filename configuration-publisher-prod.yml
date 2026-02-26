@@ -1,0 +1,7 @@
+namedValues:
+  - name: tifsecret1
+    properties:
+      displayName: tifsecret1
+      keyVault:
+       secretIdentifier: "https://feiaz-apim-prod.vault.azure.net/secrets/tifsecret1"
+      secret: true
