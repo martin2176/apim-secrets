@@ -67,7 +67,7 @@ jobs:
      uses: martin2176/ecs-apim-workflows/.github/workflows/msteams-notification.yml@main
      with:
       CHANNEL_NAME: "TEST_DEPLOYMENT_CHANNEL"
-      MESSAGE_TITLE: "Deployment waiting for Approval."
+      MESSAGE_TITLE: "Deployment in Progress."
       MESSAGE_BODY: "There is a Deployment to Test In Progress.Access the Workflow at: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}>"
 
     Notify-MS-Teams-Prod-Channel:
