@@ -30,7 +30,7 @@ jobs:
      with:
       CHANNEL_NAME: "TEST_DEPLOYMENT_CHANNEL"
       MESSAGE_TITLE: "Deployment waiting for Approval."
-      MESSAGE_BODY: "There is a Deployment to Test APIM Instance waiting for Approval.Access the Workflow at: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}>"
+      MESSAGE_BODY: "There is a Deployment to Test In Progress.Access the Workflow at: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}>"
     Publish-Artifacts-to-Test-APIM:
      uses: martin2176/ecs-apim-workflows/.github/workflows/publish-to-test-matrix-controller.yml@main
      with:

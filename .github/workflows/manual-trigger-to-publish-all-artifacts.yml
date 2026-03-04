@@ -37,9 +37,21 @@ on:
      API_NAME_FOR_REVISIONING:
       description: |
        This is only Applicable for Prod. Enter Name of the API to create a backup Revision.
-       Leave as default(null) if you are not deploying an API or you are not deploying into Prod.  
+       Leave as default(null) if you are not deploying an API or you are not deploying into Prod
+       or you do not want to create a backup revision.
       required: false
       type: string
+     DRY_RUN:
+      description: |
+       Do you want to run in Dry Run Mode ?
+       (Dry run Mode is only applicable for Production and will be skipped for Dev, Test)
+      required: true
+      type: choice
+      default: "no"
+      options:
+       - "no"
+       - "yes"
+       
 concurrency:
  group: publish-to-${{ inputs.API_MANAGEMENT_ENVIRONMENT }}-apim-instance
  cancel-in-progress: false
@@ -56,7 +68,7 @@ jobs:
      with:
       CHANNEL_NAME: "TEST_DEPLOYMENT_CHANNEL"
       MESSAGE_TITLE: "Deployment waiting for Approval."
-      MESSAGE_BODY: "There is a Deployment to Test APIM Instance waiting for Approval.Access the Workflow at: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}>"
+      MESSAGE_BODY: "There is a Deployment to Test In Progress.Access the Workflow at: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}>"
 
     Notify-MS-Teams-Prod-Channel:
      name: Notify-MS-Teams-Prod-Channel
@@ -96,7 +108,7 @@ jobs:
       REFERENCE_NUMBER: ${{ inputs.REFERENCE_NUMBER }}
 
     Create-Backup-Revision-and-Delete-Older-Revisions:
-     if: ${{ inputs.API_MANAGEMENT_ENVIRONMENT  == 'prod' }}
+     if: ${{ inputs.API_MANAGEMENT_ENVIRONMENT  == 'prod' && inputs.DRY_RUN == 'no' }}
      uses: martin2176/ecs-apim-workflows/.github/workflows/publish-to-prod-api-revision-management.yml@main
      with:
       REVISION_ID: ${{ inputs.REFERENCE_NUMBER }}
@@ -117,3 +129,4 @@ jobs:
       BRANCH_TO_DEPLOY_FROM: ${{ inputs.BRANCH_TO_DEPLOY_FROM }} 
       BRANCH_FOR_PUBLISHER_CONFIG: main
       REFERENCE_NUMBER: ${{ inputs.REFERENCE_NUMBER }}
+      DRY_RUN: ${{ inputs.DRY_RUN }}
